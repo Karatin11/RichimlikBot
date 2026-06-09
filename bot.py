@@ -6,6 +6,7 @@ import os
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
+from aiogram.filters import ChatType
 from aiogram.filters.chat_member_updated import ChatMemberUpdatedFilter, JOIN_TRANSITION
 from aiogram.types import (
     CallbackQuery,
@@ -206,7 +207,7 @@ async def cb_skip(call: CallbackQuery):
 
 
 
-@dp.message(Command("list"))
+@dp.message(Command("list"), ChatType("private"))
 async def cmd_list(message: Message):
     people = get_all_people(SPREADSHEET_ID)
     if not people:
@@ -242,7 +243,7 @@ async def cmd_list(message: Message):
     )
 
 
-@dp.message(Command("note"))
+@dp.message(Command("note"), ChatType("private"))
 async def cmd_eslatma(message: Message):
     if message.from_user.id != admin_id():
         await message.reply("⛔ Faqat admin uchun!")
@@ -251,7 +252,7 @@ async def cmd_eslatma(message: Message):
     await message.reply("✅ Eslatma yuborildi!")
 
 
-@dp.message(Command("start"))
+@dp.message(Command("start"), ChatType("private"))
 async def cmd_start(message: Message):
     aid = admin_id()
     if message.from_user.id != aid:
@@ -286,12 +287,12 @@ async def cmd_start(message: Message):
     )
 
 
-@dp.message(F.text == "📋 List")
+@dp.message(F.text == "📋 List", ChatType("private"))
 async def btn_list(message: Message):
     await cmd_list(message)
 
 
-@dp.message(F.text == "🔔 Note")
+@dp.message(F.text == "🔔 Note", ChatType("private"))
 async def btn_note(message: Message):
     if message.from_user.id != admin_id():
         await message.reply("⛔ Faqat admin!")
@@ -340,7 +341,7 @@ async def cb_admin_note(call: CallbackQuery):
     await call.answer("✅ Eslatma yuborildi!")
 
 
-@dp.message(Command("help"))
+@dp.message(Command("help"), ChatType("private"))
 async def cmd_help(message: Message):
     await message.reply(
         "╔══════════════════╗\n"
