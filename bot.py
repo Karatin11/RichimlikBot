@@ -361,27 +361,6 @@ async def cmd_help(message: Message):
 
 
 
-@dp.chat_member(ChatMemberUpdatedFilter(JOIN_TRANSITION))
-async def new_member(event: ChatMemberUpdated):
-    name = event.new_chat_member.user.first_name
-    await event.answer(
-        f"╔══════════════════╗\n"
-        f"   🎉 <b>XUSH KELIBSIZ!</b>\n"
-        f"╚══════════════════╝\n\n"
-        f"Salom, <b>{name}</b>! 👋\n"
-        f"Guruhimizga xush kelibsiz!\n\n"
-        f"─────────────────────\n"
-        f"🥤 <b>Bu guruh haqida:</b>\n"
-        f"Har kuni birimiz ichimlik olib keladi.\n"
-        f"Hamma teng bajarmaguncha keyingi turga o'tilmaydi.\n\n"
-        f"─────────────────────\n"
-        f"📌 <b>Buyruqlar:</b>\n\n"
-        f"▸ /list — navbat ro'yxati\n"
-        f"▸ /yordam — to'liq yordam\n\n"
-        f"─────────────────────\n"
-        f"Omad! 🥤🧃",
-        parse_mode="HTML",
-    )
 
 
 
@@ -390,7 +369,7 @@ async def main():
     logger.info("Bot started")
     await dp.start_polling(
         bot,
-        allowed_updates=["message", "callback_query", "chat_member"],
+        allowed_updates=["message", "callback_query"],
     )
 
 
